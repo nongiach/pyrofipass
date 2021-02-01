@@ -23,11 +23,12 @@ def notify_error(message, do_print=True):
 class Config:
     """ config, Keybindings and advanced config
     """
-    version = "1.0"
+    version = "1.1"
     key_user_pass = "Return"
     key_pass_only = "Alt+Return"
     rofi_conf = f'-sort -mesg QuicKeepass_By_@chaignc_v{version}'
     rofi_choice = f'{rofi_conf} -i -kb-accept-entry {key_pass_only} -kb-custom-1 {key_user_pass}'
+    rofi_arrow_keys = "-kb-row-down 'alt+k' -kb-row-up 'alt+l' -kb-row-left 'alt+j' -kb-row-right 'alt+m'"
     rofi_ask_password = f'{rofi_conf}'
     # args sent by the user from cmdline
     rofi_userargs = f''
@@ -56,7 +57,7 @@ def ask_password(message):
 
 def ask_choice(choices, default_filter):
     """ multiple choice using rofi """
-    return rofi(f'rofi -dmenu -p URL {Config.rofi_choice} {Config.rofi_userargs} -filter {default_filter}', stdin='\n'.join(choices))
+    return rofi(f'rofi -dmenu -p URL {Config.rofi_choice} {Config.rofi_arrow_keys} {Config.rofi_userargs} -filter {default_filter}', stdin='\n'.join(choices))
 
 def autotype(username, password, returncode):
     """ autotype username and password
